@@ -13,8 +13,6 @@ fn main() {
     while guess != secret_number {
         guess = get_user_input();
 
-        println!("You guessed: {}", guess);
-
         if guess > secret_number {
             println!("{}", "Too big !".red());
         } else if guess < secret_number {
@@ -31,19 +29,19 @@ fn generate_secret_number() -> u32 {
 }
 
 fn get_user_input() -> u32 {
-    let mut guess = String::new();
+    let mut guess: String = String::new();
 
     while true {
         println!("Please enter your guess: ");
         io::stdin().read_line(&mut guess).expect("Failed to read line !");
 
-        let guess: u32 = match guess.trim().parse() {
+        match guess.trim().parse() {
             Ok(num) => {
                 return num;
             },
             Err(_) => {
-                println!("{}",  " Please enter a valid number !".red().bold());
-                continue;
+                println!("{}",  "Please enter a valid number !".red().bold());
+                guess = String::new();
             },
         };
     };
